@@ -153,6 +153,47 @@ class _CodeViewPageState extends State<CodeViewPage> {
     );
   }
 
+  void _viewFullCode(String code) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        backgroundColor: Colors.black87,
+        contentPadding: const EdgeInsets.all(16),
+        title: const Text(
+          "Full Code View",
+          style: TextStyle(color: Colors.white),
+        ),
+        content: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: SelectableText(
+            code,
+            style: const TextStyle(
+              fontFamily: 'Courier',
+              fontSize: 14,
+              color: Colors.greenAccent,
+            ),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Isara", style: TextStyle(color: Colors.white)),
+          ),
+          TextButton(
+            onPressed: () {
+              Clipboard.setData(ClipboardData(text: code));
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("Code naka-copy na sa clipboard!")),
+              );
+            },
+            child: const Text("Copy", style: TextStyle(color: Colors.greenAccent)),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -242,6 +283,11 @@ class _CodeViewPageState extends State<CodeViewPage> {
                   icon: const Icon(Icons.edit, color: Colors.blueAccent),
                   onPressed: () => _editCode(index, code),
                   tooltip: "I-edit ang code block",
+                ),
+                IconButton(
+                  icon: const Icon(Icons.open_in_full, color: Colors.amberAccent),
+                  onPressed: () => _viewFullCode(code),
+                  tooltip: "View full code",
                 ),
                 IconButton(
                   icon: const Icon(Icons.delete, color: Colors.redAccent),
