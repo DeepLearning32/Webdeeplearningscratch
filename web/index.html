@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="webdeeplearningscratch">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>webdeeplearningscratch</title>
+  <link rel="manifest" href="manifest.json">
+
+  <!-- ✅ Spinner Styles -->
+  <style>
+    .loader {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #3498db;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    #loading-screen {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      z-index: 9999;
+      flex-direction: column;
+    }
+
+    #loading-screen p {
+      font-family: sans-serif;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ✅ Instant Loading UI -->
+  <div id="loading-screen">
+    <div class="loader"></div>
+    <p>Loading, please wait...</p>
+  </div>
+
+  <!-- 🔄 Flutter Web App Script -->
+  <script src="flutter_bootstrap.js" async></script>
+
+  <!-- 🧹 Hide loader after Flutter loads -->
+  <script>
+    window.addEventListener('load', function () {
+      const loader = document.getElementById('loading-screen');
+      if (loader) loader.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
